@@ -1,13 +1,15 @@
 <template>
   <div class="header">
-    <h1>Wordle</h1>
+    <div class="title">
+      <Logo />
+      <h1>Wordle</h1>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Header',
-  components: {},
 };
 </script>
 
@@ -18,6 +20,12 @@ export default {
   justify-content: space-around;
   padding: 10px 20px;
   border-bottom: 1px solid #d3d3d4;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
 h1 {

@@ -12,8 +12,9 @@
   </svg>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .nuxt-logo {
-  height: 180px;
+  height: 28px;
+  transform: rotate(180deg);
 }
 </style>

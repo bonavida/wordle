@@ -2,7 +2,7 @@
   <div class="word">
     <Letter
       v-for="col in 5"
-      :key="`row_${index}_letter_${col - 1}$`"
+      :key="`row_${index}_letter_${col - 1}`"
       :value="value[col - 1]"
     />
   </div>

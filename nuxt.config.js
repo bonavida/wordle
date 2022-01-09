@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 export default {
   // Source directory: https://nuxtjs.org/docs/configuration-glossary/configuration-srcdir/
   srcDir: 'src/',
@@ -29,6 +31,17 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
+
+  // Aliases: https://nuxtjs.org/docs/directory-structure/nuxt-config#alias
+  alias: {
+    '@components': resolve(__dirname, './src/components'),
+    '@constants': resolve(__dirname, './src/constants'),
+    '@pages': resolve(__dirname, './src/pages'),
+    '@static': resolve(__dirname, './src/static'),
+    '@store': resolve(__dirname, './src/store'),
+    '@styles': resolve(__dirname, './src/styles'),
+    '@utils': resolve(__dirname, './src/utils'),
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

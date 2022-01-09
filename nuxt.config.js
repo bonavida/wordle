@@ -40,6 +40,7 @@ export default {
     '@static': resolve(__dirname, './src/static'),
     '@store': resolve(__dirname, './src/store'),
     '@styles': resolve(__dirname, './src/styles'),
+    '@customTypes': resolve(__dirname, './src/types'),
     '@utils': resolve(__dirname, './src/utils'),
   },
 

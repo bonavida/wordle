@@ -10,32 +10,12 @@
 </template>
 
 <script>
-import {
-  INITIAL_DATA,
-  GAME_STATUS,
-  WORD_LENGTH,
-  KEYBOARD_EVENT_KEY,
-} from '@constants/game';
-import { getStoredData, isKeyboardKeyValid } from '@utils/game';
+import { mapState, mapGetters, mapActions } from 'vuex';
+import { WORD_LENGTH, KEYBOARD_EVENT_KEY } from '@constants/game';
+import { isKeyboardKeyValid } from '@utils/game';
 
 export default {
-  data: () => {
-    const { BOARD, ROW_INDEX, STATUS } = INITIAL_DATA ?? {};
-
-    return {
-      game: {
-        board: BOARD,
-        rowIndex: ROW_INDEX,
-        status: STATUS,
-      },
-    };
-  },
   computed: {
-    isGameFinished() {
-      const { WIN, DEFEAT } = GAME_STATUS;
-      return [WIN, DEFEAT].includes(this.status);
-    },
-
     isCurrentWordFilled() {
       return this.currentWord.length === WORD_LENGTH;
     },
@@ -44,21 +24,8 @@ export default {
       return !this.currentWord.length;
     },
 
-    board() {
-      return this.game?.board ?? INITIAL_DATA.BOARD;
-    },
-
-    status() {
-      return this.game?.status ?? INITIAL_DATA.STATUS;
-    },
-
-    rowIndex() {
-      return this.game?.rowIndex ?? INITIAL_DATA.ROW_INDEX;
-    },
-
-    currentWord() {
-      return this.board[this.rowIndex] ?? '';
-    },
+    ...mapState(['board', 'rowIndex', 'status']),
+    ...mapGetters(['isGameFinished', 'currentWord']),
   },
   methods: {
     updateBoard(board) {
@@ -71,18 +38,7 @@ export default {
     setLetterIntoBoard(letter) {
       if (this.isGameFinished || this.isCurrentWordFilled) return;
 
-      const updatedWord = `${this.currentWord}${letter}`;
-      const updatedBoard = [...this.board];
-      updatedBoard[this.rowIndex] = updatedWord;
-
-      this.updateBoard(updatedBoard);
-    },
-
-    setInitialDataFromLocalStorage() {
-      const data = getStoredData();
-      const { BOARD, ROW_INDEX, STATUS } = INITIAL_DATA ?? {};
-      const { board = BOARD, rowIndex = ROW_INDEX, status = STATUS } = data;
-      this.game = { ...this.game, board, rowIndex, status };
+      this.addLetter(letter);
     },
 
     handleKeyPress({ key }) {
@@ -103,25 +59,19 @@ export default {
     handlePressEnter() {
       if (!this.isCurrentWordFilled) return;
 
-      // TODO: Check if it's a valid word
-
-      this.game = { ...this.game, rowIndex: this.rowIndex + 1 };
-
-      // TODO: Check if the game is over
+      this.submitWord();
     },
 
     handlePressBackspace() {
       if (this.isCurrentWordEmpty) return;
 
-      const updatedWord = this.currentWord.slice(0, -1);
-      const updatedBoard = [...this.board];
-      updatedBoard[this.rowIndex] = updatedWord;
-
-      this.updateBoard(updatedBoard);
+      this.removeLetter();
     },
+
+    ...mapActions(['populateGame', 'addLetter', 'removeLetter', 'submitWord']),
   },
   mounted() {
-    this.setInitialDataFromLocalStorage();
+    this.populateGame();
 
     // Add event listeners
     window.addEventListener('keydown', this.handleKeyPress);

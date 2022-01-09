@@ -25,6 +25,9 @@
       "@constants/*": [
         "src/constants/*"
       ],
+      "@customTypes/*": [
+        "src/types/*"
+      ],
       "@utils/*": [
         "src/utils/*"
       ],

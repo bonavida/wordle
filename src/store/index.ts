@@ -15,11 +15,11 @@ export const state = (): GameState => ({
 export type RootState = ReturnType<typeof state>;
 
 export const getters: GetterTree<RootState, RootState> = {
-  isGameFinished: (state) => {
+  isGameFinished: (state): boolean => {
     const { WIN, DEFEAT } = GAME_STATUS;
     return [WIN, DEFEAT].includes(state.status);
   },
-  currentWord: (state) => state.board[state.rowIndex] ?? '',
+  currentWord: (state): string => state.board[state.rowIndex] ?? '',
 };
 
 export const mutations: MutationTree<RootState> = {

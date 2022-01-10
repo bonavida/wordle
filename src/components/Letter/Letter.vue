@@ -2,8 +2,11 @@
   <div :class="letterClasses">{{ value }}</div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+import { ComputedClass } from '@customTypes/common';
+
+export default Vue.extend({
   props: {
     value: {
       type: String,
@@ -11,18 +14,18 @@ export default {
     },
   },
   computed: {
-    isFilled() {
+    isFilled(): boolean {
       return !!this.value;
     },
 
-    letterClasses() {
+    letterClasses(): ComputedClass {
       return {
         letter: true,
         'letter--filled': this.isFilled,
       };
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

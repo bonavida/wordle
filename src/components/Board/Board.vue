@@ -9,18 +9,19 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { WORD_LENGTH, KEYBOARD_EVENT_KEY } from '@constants/game';
 import { isKeyboardKeyValid } from '@utils/game';
 
-export default {
+export default Vue.extend({
   computed: {
-    isCurrentWordFilled() {
+    isCurrentWordFilled(): boolean {
       return this.currentWord.length === WORD_LENGTH;
     },
 
-    isCurrentWordEmpty() {
+    isCurrentWordEmpty(): boolean {
       return !this.currentWord.length;
     },
 
@@ -28,20 +29,13 @@ export default {
     ...mapGetters(['isGameFinished', 'currentWord']),
   },
   methods: {
-    updateBoard(board) {
-      this.game = {
-        ...this.game,
-        board,
-      };
-    },
-
-    setLetterIntoBoard(letter) {
+    setLetterIntoBoard(letter: string) {
       if (this.isGameFinished || this.isCurrentWordFilled) return;
 
       this.addLetter(letter);
     },
 
-    handleKeyPress({ key }) {
+    handleKeyPress({ key }: KeyboardEvent) {
       if (!isKeyboardKeyValid(key)) return;
 
       switch (key) {
@@ -80,7 +74,7 @@ export default {
     // Remove event listeners
     window.removeEventListener('keydown', this.handleKeyPress);
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

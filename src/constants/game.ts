@@ -1,4 +1,11 @@
 export const WORD_LENGTH = 5;
+export const DEFAULT_EMPTY_EVALUATION = [
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+];
 
 export const GAME_STATUS = {
   WIN: 'win',
@@ -15,6 +22,12 @@ export const INITIAL_DATA = {
 export const KEYBOARD_EVENT_KEY = {
   ENTER: 'Enter',
   BACKSPACE: 'Backspace',
+};
+
+export const LETTER_STATUS = {
+  ABSENT: 'absent',
+  PRESENT: 'present',
+  CORRECT: 'correct',
 };
 
 export const LOCALSTORAGE_METADATA_KEY = 'wordle_metadata';

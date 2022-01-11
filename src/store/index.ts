@@ -9,7 +9,7 @@ export const state = (): GameState => ({
   board: BOARD,
   rowIndex: ROW_INDEX,
   status: STATUS,
-  solution: 'crank',
+  solution: 'adapt',
 });
 
 export type RootState = ReturnType<typeof state>;

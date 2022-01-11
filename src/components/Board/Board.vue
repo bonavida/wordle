@@ -32,7 +32,7 @@ export default Vue.extend({
     setLetterIntoBoard(letter: string) {
       if (this.isGameFinished || this.isCurrentWordFilled) return;
 
-      this.addLetter(letter);
+      this.addLetter(letter.toLowerCase());
     },
 
     handleKeyPress({ key }: KeyboardEvent) {

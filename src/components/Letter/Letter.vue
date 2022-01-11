@@ -12,16 +12,25 @@ export default Vue.extend({
       type: String,
       default: '',
     },
+    status: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
     isFilled(): boolean {
       return !!this.value;
     },
 
+    isCompleted(): boolean {
+      return !!this.status;
+    },
+
     letterClasses(): ComputedClass {
       return {
         letter: true,
-        'letter--filled': this.isFilled,
+        'letter--filled': !this.isCompleted && this.isFilled,
+        [`letter--${this.status}`]: this.isCompleted,
       };
     },
   },
@@ -45,10 +54,29 @@ export default Vue.extend({
   vertical-align: middle;
   text-transform: uppercase;
   user-select: none;
-  transition: border-color 0.2s lineal;
+  transition: border-color 0.2s lineal, color 0.2s lineal,
+    background-color 0.2s lineal;
 
   &--filled {
     border-color: #878a8c;
+  }
+
+  &--absent {
+    background-color: #35495e;
+    color: #fff;
+    border-color: #35495e;
+  }
+
+  &--present {
+    background-color: #e5c94d;
+    color: #fff;
+    border-color: #e5bb04;
+  }
+
+  &--correct {
+    background-color: #41b883;
+    color: #fff;
+    border-color: #23a169;
   }
 }
 </style>

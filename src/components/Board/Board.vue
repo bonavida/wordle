@@ -26,11 +26,11 @@ export default Vue.extend({
     },
 
     ...mapState(['board', 'rowIndex', 'status']),
-    ...mapGetters(['isGameFinished', 'currentWord']),
+    ...mapGetters(['isGameOver', 'currentWord']),
   },
   methods: {
     setLetterIntoBoard(letter: string) {
-      if (this.isGameFinished || this.isCurrentWordFilled) return;
+      if (this.isGameOver || this.isCurrentWordFilled) return;
 
       this.addLetter(letter.toLowerCase());
     },

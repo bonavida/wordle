@@ -1,7 +1,11 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex';
+/** Constants */
 import { INITIAL_DATA, GAME_STATUS } from '@constants/game';
+/** Types */
 import { GameState } from '@customTypes/game';
-import { getStoredData } from '@utils/game';
+/** Utils */
+import { getStoredData, storeData } from '@utils/game';
+import { isWordValid } from '@utils/words';
 
 const { BOARD, ROW_INDEX, STATUS } = INITIAL_DATA ?? {};
 
@@ -9,13 +13,13 @@ export const state = (): GameState => ({
   board: BOARD,
   rowIndex: ROW_INDEX,
   status: STATUS,
-  solution: 'adapt',
+  solution: '',
 });
 
 export type RootState = ReturnType<typeof state>;
 
 export const getters: GetterTree<RootState, RootState> = {
-  isGameFinished: (state): boolean => {
+  isGameOver: (state): boolean => {
     const { WIN, DEFEAT } = GAME_STATUS;
     return [WIN, DEFEAT].includes(state.status);
   },
@@ -25,20 +29,7 @@ export const getters: GetterTree<RootState, RootState> = {
 export const mutations: MutationTree<RootState> = {
   POPULATE_GAME: (state) => {
     const data = getStoredData();
-    const {
-      board = BOARD,
-      rowIndex = ROW_INDEX,
-      status = STATUS,
-      solution = '',
-    } = data;
-    state = {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ...state,
-      board,
-      rowIndex,
-      status,
-      solution,
-    };
+    Object.assign(state, data);
   },
 
   UPDATE_BOARD: (state, board) => {
@@ -47,6 +38,10 @@ export const mutations: MutationTree<RootState> = {
 
   INCREASE_ROW_INDEX: (state) => {
     state.rowIndex += 1;
+  },
+
+  UPDATE_GAME_STATUS: (state, status) => {
+    state.status = status;
   },
 };
 
@@ -78,9 +73,27 @@ export const actions: ActionTree<RootState, RootState> = {
     commit('UPDATE_BOARD', updatedBoard);
   },
 
-  submitWord({ commit }) {
-    // TODO: Check if current word is a valid word
-    // TODO: Check if the game is over
+  submitWord({ commit, state, getters }) {
+    // Check if the word is gramatically valid
+    if (!isWordValid(getters.currentWord)) {
+      return;
+    }
+
+    // Check if the current word is the winning word
+    if (getters.currentWord === state.solution) {
+      commit('UPDATE_GAME_STATUS', GAME_STATUS.WIN);
+      storeData(state);
+    }
+
+    // Check if the game is over
+    if (state.rowIndex === state.board.length - 1) {
+      commit('UPDATE_GAME_STATUS', GAME_STATUS.DEFEAT);
+      storeData(state);
+      return;
+    }
+
+    // Next guess
     commit('INCREASE_ROW_INDEX');
+    storeData(state);
   },
 };

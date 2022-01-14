@@ -1,15 +1,33 @@
+/** Utils */
+import { getDailyWord } from './words';
+/** Constants */
 import {
-  LOCALSTORAGE_METADATA_KEY,
+  LOCALSTORAGE_STATE_KEY,
   KEYBOARD_EVENT_KEY,
   LETTER_STATUS,
   DEFAULT_EMPTY_EVALUATION,
 } from '@constants/game';
-import { LetterEvaluation } from '@customTypes/game';
+/** Types */
+import { GameState, LetterEvaluation } from '@customTypes/game';
 
 export const getStoredData = () => {
+  const partialState = { solution: getDailyWord() };
+  if (!process.client) return partialState;
+  const state = localStorage.getItem(LOCALSTORAGE_STATE_KEY);
+  if (!state) return partialState;
+  const normalizedState = { ...JSON.parse(state), ...partialState };
+  return {
+    ...normalizedState,
+
+    board: normalizedState.board.map((word: string | null) =>
+      word === null ? undefined : word
+    ),
+  };
+};
+
+export const storeData = (state: GameState) => {
   if (!process.client) return;
-  const metadata = localStorage.getItem(LOCALSTORAGE_METADATA_KEY);
-  return metadata ? JSON.parse(metadata) : {};
+  localStorage.setItem(LOCALSTORAGE_STATE_KEY, JSON.stringify(state));
 };
 
 export const isKeyboardKeyValid = (key: string): boolean =>

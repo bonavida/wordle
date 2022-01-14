@@ -30,4 +30,4 @@ export const LETTER_STATUS = {
   CORRECT: 'correct',
 };
 
-export const LOCALSTORAGE_METADATA_KEY = 'wordle_metadata';
+export const LOCALSTORAGE_STATE_KEY = 'GAME_STATE';

@@ -5,6 +5,7 @@
         v-for="key in firstRow"
         :key="`key_${key}`"
         :value="key"
+        :status="letters[key]"
         @clicked="setLetterIntoBoard"
       />
     </div>
@@ -13,6 +14,7 @@
         v-for="key in secondRow"
         :key="`key_${key}`"
         :value="key"
+        :status="letters[key]"
         @clicked="setLetterIntoBoard"
       />
     </div>
@@ -22,6 +24,7 @@
         v-for="key in thirdRow"
         :key="`key_${key}`"
         :value="key"
+        :status="letters[key]"
         @clicked="setLetterIntoBoard"
       />
       <Key :size="keyLargeSize" @clicked="handlePressBackspace">
@@ -47,7 +50,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import { WORD_LENGTH, KEYBOARD_EVENT_KEY, KEY_SIZE } from '@constants/game';
 import { isKeyboardKeyValid } from '@utils/game';
 
@@ -77,6 +80,7 @@ export default Vue.extend({
       return KEY_SIZE.LARGE;
     },
 
+    ...mapState('evaluations', ['letters']),
     ...mapGetters(['isGameOver', 'currentWord']),
   },
   methods: {

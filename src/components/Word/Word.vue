@@ -11,9 +11,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { evaluateWord } from '@utils/game';
-import { DEFAULT_EMPTY_EVALUATION } from '@constants/game';
-import { LetterEvaluation } from '@customTypes/game';
+import { mapGetters } from 'vuex';
+import { LetterEvaluation } from '@customTypes/evaluations';
 
 export default Vue.extend({
   props: {
@@ -32,9 +31,10 @@ export default Vue.extend({
     },
 
     evaluations(): LetterEvaluation {
-      if (!this.isCompleted) return DEFAULT_EMPTY_EVALUATION;
-      return evaluateWord(this.$store.state.solution, this.value);
+      return this.getWordEvaluation(this.index);
     },
+
+    ...mapGetters({ getWordEvaluation: 'evaluations/getWordEvaluation' }),
   },
 });
 </script>

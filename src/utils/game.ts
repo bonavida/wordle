@@ -1,3 +1,4 @@
+import { Commit } from 'vuex';
 /** Utils */
 import { getDailyWord } from './words';
 /** Constants */
@@ -8,7 +9,8 @@ import {
   DEFAULT_EMPTY_EVALUATION,
 } from '@constants/game';
 /** Types */
-import { GameState, LetterEvaluation } from '@customTypes/game';
+import { GameState } from '@customTypes/game';
+import { LetterEvaluation } from '@customTypes/evaluations';
 
 export const getStoredData = (initialState: GameState): GameState => {
   const solution = getDailyWord();
@@ -36,18 +38,23 @@ export const getStoredData = (initialState: GameState): GameState => {
   };
 };
 
-export const storeData = (state: GameState) => {
+export const storeData = ({ board, rowIndex, status, solution }: GameState) => {
   if (!process.client) return;
-  localStorage.setItem(LOCALSTORAGE_STATE_KEY, JSON.stringify(state));
+  // Only store what we want
+  localStorage.setItem(
+    LOCALSTORAGE_STATE_KEY,
+    JSON.stringify({ board, rowIndex, status, solution })
+  );
 };
 
 export const isKeyboardKeyValid = (key: string): boolean =>
   /^[a-zA-Z]$/.test(key) ||
   [KEYBOARD_EVENT_KEY.ENTER, KEYBOARD_EVENT_KEY.BACKSPACE].includes(key);
 
-export const evaluateWord = (
+export const evaluateWordStatus = (
   solution: string,
-  word: string
+  word: string,
+  commit: Commit
 ): LetterEvaluation => {
   if (!word) return DEFAULT_EMPTY_EVALUATION;
 
@@ -78,6 +85,10 @@ export const evaluateWord = (
     // If the solution doesn't include the letter at all, mark it as ABSENT
     if (!solution.includes(letter)) {
       acc[letter].push({ index, status: LETTER_STATUS.ABSENT });
+      commit('UPDATE_LETTER_EVALUATION', {
+        letter,
+        status: LETTER_STATUS.ABSENT,
+      });
       return acc;
     }
 
@@ -101,6 +112,10 @@ export const evaluateWord = (
       // And then, mark the letter as CORRECT
       acc[letter].push({ index, status: LETTER_STATUS.CORRECT });
       solutionOcurrences[letter].remaining--;
+      commit('UPDATE_LETTER_EVALUATION', {
+        letter,
+        status: LETTER_STATUS.CORRECT,
+      });
       return acc;
     }
 
@@ -111,6 +126,10 @@ export const evaluateWord = (
     if (solutionOcurrences[letter].remaining > 0) {
       acc[letter].push({ index, status: LETTER_STATUS.PRESENT });
       solutionOcurrences[letter].remaining--;
+      commit('UPDATE_LETTER_EVALUATION', {
+        letter,
+        status: LETTER_STATUS.PRESENT,
+      });
       return acc;
     }
 

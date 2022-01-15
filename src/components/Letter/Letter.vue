@@ -48,17 +48,16 @@ export default Vue.extend({
   background-color: #fff;
   border: 2px solid #ddd;
   border-radius: 3px;
-  color: #003543;
+  color: #fff;
   font-size: 2rem;
   line-height: 2rem;
   font-weight: bold;
   vertical-align: middle;
   text-transform: uppercase;
   user-select: none;
-  transition: border-color 0.2s lineal, color 0.2s lineal,
-    background-color 0.2s lineal;
 
   &--filled {
+    color: #003543;
     border-color: #878a8c;
   }
 

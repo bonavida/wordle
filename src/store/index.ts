@@ -46,8 +46,9 @@ export const mutations: MutationTree<RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  populateGame({ commit }) {
+  populateGame({ commit, dispatch }) {
     commit('POPULATE_GAME');
+    dispatch('evaluations/populateEvaluations', null, { root: true });
   },
 
   addLetter(
@@ -73,16 +74,19 @@ export const actions: ActionTree<RootState, RootState> = {
     commit('UPDATE_BOARD', updatedBoard);
   },
 
-  submitWord({ commit, state, getters }) {
+  submitWord({ commit, state, getters, dispatch }) {
     // Check if the word is gramatically valid
     if (!isWordValid(getters.currentWord)) {
       return;
     }
 
+    dispatch('evaluations/evaluateWord', getters.currentWord, { root: true });
+
     // Check if the current word is the winning word
     if (getters.currentWord === state.solution) {
       commit('UPDATE_GAME_STATUS', GAME_STATUS.WIN);
       storeData(state);
+      return;
     }
 
     // Check if the game is over

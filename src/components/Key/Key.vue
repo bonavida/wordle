@@ -76,7 +76,7 @@ export default Vue.extend({
   text-transform: uppercase;
   user-select: none;
   cursor: pointer;
-  transition: color 0.2s lineal, background-color 0.2s lineal;
+  transition: color 0.3s linear, background-color 0.3s linear;
 
   &--absent {
     background-color: #35495e;

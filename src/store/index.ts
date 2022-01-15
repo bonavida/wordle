@@ -28,8 +28,8 @@ export const getters: GetterTree<RootState, RootState> = {
 
 export const mutations: MutationTree<RootState> = {
   POPULATE_GAME: (state) => {
-    const data = getStoredData();
-    Object.assign(state, data);
+    const populatedState = getStoredData(state);
+    Object.assign(state, populatedState);
   },
 
   UPDATE_BOARD: (state, board) => {

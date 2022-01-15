@@ -10,18 +10,26 @@ import {
 /** Types */
 import { GameState, LetterEvaluation } from '@customTypes/game';
 
-export const getStoredData = () => {
-  const partialState = { solution: getDailyWord() };
-  if (!process.client) return partialState;
-  const state = localStorage.getItem(LOCALSTORAGE_STATE_KEY);
-  if (!state) return partialState;
-  const normalizedState = { ...JSON.parse(state), ...partialState };
-  return {
-    ...normalizedState,
+export const getStoredData = (initialState: GameState): GameState => {
+  const solution = getDailyWord();
+  const defaultState = { ...initialState, solution };
 
-    board: normalizedState.board.map((word: string | null) =>
+  if (!process.client) return defaultState;
+
+  const state = localStorage.getItem(LOCALSTORAGE_STATE_KEY);
+
+  if (!state) return defaultState;
+
+  const storedState = { ...JSON.parse(state) };
+  const normalizedBoard =
+    storedState?.board?.map((word: string | null) =>
       word === null ? undefined : word
-    ),
+    ) ?? initialState.board;
+
+  return {
+    ...storedState,
+    board: normalizedBoard,
+    solution,
   };
 };
 

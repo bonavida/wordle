@@ -1,6 +1,6 @@
 <template>
   <button :class="keyClasses" @click="handleClick">
-    <slot name="key-content" />
+    <slot name="key-content"></slot>
     <template v-if="hasValue">{{ value }}</template>
   </button>
 </template>
@@ -48,7 +48,7 @@ export default Vue.extend({
   },
   methods: {
     handleClick() {
-      this.$emit('click', this.value);
+      this.$emit('clicked', this.value);
     },
   },
 });

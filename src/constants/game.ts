@@ -31,3 +31,7 @@ export const LETTER_STATUS = {
 };
 
 export const LOCALSTORAGE_STATE_KEY = 'GAME_STATE';
+export const KEY_SIZE = {
+  REGULAR: 'regular',
+  LARGE: 'large',
+};

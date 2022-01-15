@@ -21,6 +21,9 @@ export const getStoredData = (initialState: GameState): GameState => {
   if (!state) return defaultState;
 
   const storedState = { ...JSON.parse(state) };
+
+  if (storedState.solution !== solution) return defaultState;
+
   const normalizedBoard =
     storedState?.board?.map((word: string | null) =>
       word === null ? undefined : word

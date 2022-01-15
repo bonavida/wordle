@@ -8,6 +8,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { ComputedClass } from '@customTypes/common';
+import { KEY_SIZE } from '@constants/game';
 
 export default Vue.extend({
   props: {
@@ -16,6 +17,10 @@ export default Vue.extend({
       default: '',
     },
     status: {
+      type: String,
+      default: '',
+    },
+    size: {
       type: String,
       default: '',
     },
@@ -29,9 +34,14 @@ export default Vue.extend({
       return !!this.status;
     },
 
+    isSizeLarge(): boolean {
+      return this.size === KEY_SIZE.LARGE;
+    },
+
     keyClasses(): ComputedClass {
       return {
         key: true,
+        'key--large': this.isSizeLarge,
         [`key--${this.status}`]: this.hasStatus,
       };
     },
@@ -81,6 +91,11 @@ export default Vue.extend({
   &--correct {
     background-color: #41b883;
     color: #fff;
+  }
+
+  &--large {
+    max-width: inherit;
+    padding: 0.5rem 1.2rem;
   }
 }
 </style>

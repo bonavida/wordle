@@ -41,8 +41,9 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .word {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 5px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.25rem;
 }
 </style>

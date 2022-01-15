@@ -1,5 +1,8 @@
 <template>
-  <div :class="letterClasses">{{ value }}</div>
+  <button :class="keyClasses" @click="handleClick">
+    <slot name="key-content" />
+    <template v-if="hasValue">{{ value }}</template>
+  </button>
 </template>
 
 <script lang="ts">
@@ -14,70 +17,70 @@ export default Vue.extend({
     },
     status: {
       type: String,
-      default: null,
+      default: '',
     },
   },
   computed: {
-    isFilled(): boolean {
+    hasValue(): boolean {
       return !!this.value;
     },
 
-    isCompleted(): boolean {
+    hasStatus(): boolean {
       return !!this.status;
     },
 
-    letterClasses(): ComputedClass {
+    keyClasses(): ComputedClass {
       return {
-        letter: true,
-        'letter--filled': !this.isCompleted && this.isFilled,
-        [`letter--${this.status}`]: this.isCompleted,
+        key: true,
+        [`key--${this.status}`]: this.hasStatus,
       };
+    },
+  },
+  methods: {
+    handleClick() {
+      this.$emit('click', this.value);
     },
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.letter {
-  position: relative;
-  height: 100%;
+.key {
+  font-family: inherit;
+  height: 3rem;
   width: 100%;
-  display: inline-flex;
+  max-width: 3rem;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
-  border: 2px solid #ddd;
-  border-radius: 3px;
+  flex: 1 1 0%;
+  background-color: #e4e6e7;
+  border: 0;
+  border-radius: 4px;
   color: #003543;
-  font-size: 2rem;
-  line-height: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: bold;
-  vertical-align: middle;
+  padding: 0.5rem;
+  margin: 0;
   text-transform: uppercase;
   user-select: none;
-  transition: border-color 0.2s lineal, color 0.2s lineal,
-    background-color 0.2s lineal;
-
-  &--filled {
-    border-color: #878a8c;
-  }
+  cursor: pointer;
+  transition: color 0.2s lineal, background-color 0.2s lineal;
 
   &--absent {
     background-color: #35495e;
     color: #fff;
-    border-color: #35495e;
   }
 
   &--present {
     background-color: #e5c94d;
     color: #fff;
-    border-color: #e5bb04;
   }
 
   &--correct {
     background-color: #41b883;
     color: #fff;
-    border-color: #23a169;
   }
 }
 </style>

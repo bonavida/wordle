@@ -79,10 +79,12 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .board {
+  position: relative;
+  width: 350px;
+  height: 420px;
   display: grid;
-  grid-template-rows: repeat(6, 1fr);
-  grid-gap: 5px;
-  padding: 10px;
-  box-sizing: border-box;
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  gap: 0.25rem;
+  padding: 0.75rem;
 }
 </style>

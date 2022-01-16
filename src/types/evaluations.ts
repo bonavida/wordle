@@ -1,8 +1,8 @@
 export type LetterEvaluation = Array<string | undefined>;
 
-export type EvaluationsState = {
+export interface EvaluationsState {
   words: Array<LetterEvaluation>;
   letters: {
     [key: string]: string;
   };
-};
+}

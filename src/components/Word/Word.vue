@@ -5,6 +5,7 @@
       :key="`row_${index}_letter_${col - 1}`"
       :value="value[col - 1]"
       :status="evaluations[col - 1]"
+      :is-color-blind-enabled="isColorBlindEnabled"
     />
   </div>
 </template>
@@ -23,6 +24,10 @@ export default Vue.extend({
     value: {
       type: String,
       default: '',
+    },
+    isColorBlindEnabled: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

@@ -1,51 +1,12 @@
 import { Commit } from 'vuex';
-/** Utils */
-import { getDailyWord } from './words';
 /** Constants */
 import {
-  LOCALSTORAGE_STATE_KEY,
   KEYBOARD_EVENT_KEY,
   LETTER_STATUS,
   DEFAULT_EMPTY_EVALUATION,
 } from '@constants/game';
 /** Types */
-import { GameState } from '@customTypes/game';
 import { LetterEvaluation } from '@customTypes/evaluations';
-
-export const getStoredData = (initialState: GameState): GameState => {
-  const solution = getDailyWord();
-  const defaultState = { ...initialState, solution };
-
-  if (!process.client) return defaultState;
-
-  const state = localStorage.getItem(LOCALSTORAGE_STATE_KEY);
-
-  if (!state) return defaultState;
-
-  const storedState = { ...JSON.parse(state) };
-
-  if (storedState.solution !== solution) return defaultState;
-
-  const normalizedBoard =
-    storedState?.board?.map((word: string | null) =>
-      word === null ? undefined : word
-    ) ?? initialState.board;
-
-  return {
-    ...storedState,
-    board: normalizedBoard,
-    solution,
-  };
-};
-
-export const storeData = ({ board, rowIndex, status, solution }: GameState) => {
-  if (!process.client) return;
-  // Only store what we want
-  localStorage.setItem(
-    LOCALSTORAGE_STATE_KEY,
-    JSON.stringify({ board, rowIndex, status, solution })
-  );
-};
 
 export const isKeyboardKeyValid = (key: string): boolean =>
   /^[a-zA-Z]$/.test(key) ||

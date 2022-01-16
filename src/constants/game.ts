@@ -38,7 +38,8 @@ export const LETTER_STATUS = {
   CORRECT: 'correct',
 };
 
-export const LOCALSTORAGE_STATE_KEY = 'GAME_STATE';
+export const LOCALSTORAGE_GAME_STATE_KEY = 'GAME_STATE';
+export const LOCALSTORAGE_PREFERENCES_KEY = 'PREFERENCES';
 export const KEY_SIZE = {
   REGULAR: 'regular',
   LARGE: 'large',

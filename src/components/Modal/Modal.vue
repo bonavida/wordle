@@ -50,8 +50,10 @@
   </transition>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   props: {
     id: {
       type: String,
@@ -87,16 +89,20 @@ export default {
   watch: {
     show() {
       if (!this.show) {
-        this.showContent = false;
+        this.setShowContent();
       }
     },
   },
   methods: {
+    setShowContent(showContent: boolean = false) {
+      this.showContent = showContent;
+    },
+
     emitClose() {
       this.$emit('close');
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -118,7 +124,7 @@ export default {
   &__wrapper {
     position: relative;
     min-width: auto;
-    max-width: 80vw;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -236,9 +242,9 @@ export default {
 
 /** MEDIA QUERIES */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 480px) {
   .modal__wrapper {
-    min-width: 600px;
+    width: 100%;
   }
 }
 </style>

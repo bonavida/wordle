@@ -6,6 +6,7 @@
         :key="`key_${key}`"
         :value="key"
         :status="letters[key]"
+        :is-color-blind-enabled="colorBlindMode"
         @clicked="setLetterIntoBoard"
       />
     </div>
@@ -15,6 +16,7 @@
         :key="`key_${key}`"
         :value="key"
         :status="letters[key]"
+        :is-color-blind-enabled="colorBlindMode"
         @clicked="setLetterIntoBoard"
       />
     </div>
@@ -25,6 +27,7 @@
         :key="`key_${key}`"
         :value="key"
         :status="letters[key]"
+        :is-color-blind-enabled="colorBlindMode"
         @clicked="setLetterIntoBoard"
       />
       <Key :size="keyLargeSize" @clicked="handlePressBackspace">
@@ -86,6 +89,7 @@ export default Vue.extend({
     },
 
     ...mapState('evaluations', ['letters']),
+    ...mapState('preferences', ['colorBlindMode']),
     ...mapGetters(['isGameOver', 'currentWord']),
   },
   methods: {

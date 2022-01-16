@@ -24,6 +24,10 @@ export default Vue.extend({
       type: String,
       default: '',
     },
+    isColorBlindEnabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     hasValue(): boolean {
@@ -42,6 +46,7 @@ export default Vue.extend({
       return {
         key: true,
         'key--large': this.isSizeLarge,
+        'key--colorblind': this.isColorBlindEnabled,
         [`key--${this.status}`]: this.hasStatus,
       };
     },
@@ -96,6 +101,18 @@ export default Vue.extend({
   &--large {
     max-width: inherit;
     padding: 0.5rem 1.2rem;
+  }
+
+  &--colorblind {
+    &.key {
+      &--present {
+        background-color: #85c0f9;
+      }
+
+      &--correct {
+        background-color: #f5793a;
+      }
+    }
   }
 }
 </style>

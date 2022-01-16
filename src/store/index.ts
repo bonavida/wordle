@@ -4,7 +4,7 @@ import { INITIAL_DATA, GAME_STATUS } from '@constants/game';
 /** Types */
 import { GameState } from '@customTypes/game';
 /** Utils */
-import { getStoredData, storeData } from '@utils/game';
+import { getStoredGameState, storeGameState } from '@utils/localStorage';
 import { isWordValid } from '@utils/words';
 
 const { BOARD, ROW_INDEX, STATUS } = INITIAL_DATA ?? {};
@@ -28,7 +28,7 @@ export const getters: GetterTree<RootState, RootState> = {
 
 export const mutations: MutationTree<RootState> = {
   POPULATE_GAME: (state) => {
-    const populatedState = getStoredData(state);
+    const populatedState = getStoredGameState(state);
     Object.assign(state, populatedState);
   },
 
@@ -47,6 +47,7 @@ export const mutations: MutationTree<RootState> = {
 
 export const actions: ActionTree<RootState, RootState> = {
   populateGame({ commit, dispatch }) {
+    dispatch('preferences/populatePreferences');
     commit('POPULATE_GAME');
     dispatch('evaluations/populateEvaluations', null, { root: true });
   },
@@ -85,19 +86,19 @@ export const actions: ActionTree<RootState, RootState> = {
     // Check if the current word is the winning word
     if (getters.currentWord === state.solution) {
       commit('UPDATE_GAME_STATUS', GAME_STATUS.WIN);
-      storeData(state);
+      storeGameState(state);
       return;
     }
 
     // Check if the game is over
     if (state.rowIndex === state.board.length - 1) {
       commit('UPDATE_GAME_STATUS', GAME_STATUS.DEFEAT);
-      storeData(state);
+      storeGameState(state);
       return;
     }
 
     // Next guess
     commit('INCREASE_ROW_INDEX');
-    storeData(state);
+    storeGameState(state);
   },
 };

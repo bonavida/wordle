@@ -5,6 +5,7 @@
       :key="`row_${row - 1}`"
       :index="row - 1"
       :value="board[row - 1]"
+      :is-color-blind-enabled="colorBlindMode"
     />
   </div>
 </template>
@@ -16,6 +17,7 @@ import { mapState, mapActions } from 'vuex';
 export default Vue.extend({
   computed: {
     ...mapState(['board']),
+    ...mapState('preferences', ['colorBlindMode']),
   },
   methods: {
     ...mapActions(['populateGame']),

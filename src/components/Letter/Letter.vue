@@ -16,6 +16,10 @@ export default Vue.extend({
       type: String,
       default: null,
     },
+    isColorBlindEnabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     isFilled(): boolean {
@@ -30,6 +34,7 @@ export default Vue.extend({
       return {
         letter: true,
         'letter--filled': !this.isCompleted && this.isFilled,
+        'letter--colorblind': this.isCompleted && this.isColorBlindEnabled,
         [`letter--${this.status}`]: this.isCompleted,
       };
     },
@@ -77,6 +82,20 @@ export default Vue.extend({
     background-color: #41b883;
     color: #fff;
     border-color: #23a169;
+  }
+
+  &--colorblind {
+    &.letter {
+      &--present {
+        background-color: #85c0f9;
+        border-color: #85c0f9;
+      }
+
+      &--correct {
+        background-color: #f5793a;
+        border-color: #f5793a;
+      }
+    }
   }
 }
 </style>

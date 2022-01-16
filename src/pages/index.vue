@@ -35,4 +35,11 @@ export default Vue.extend({
   align-items: center;
   flex: 1 1 auto;
 }
+
+@media (max-width: 480px) {
+  .content {
+    row-gap: 0;
+    margin: 0 auto;
+  }
+}
 </style>

@@ -43,3 +43,9 @@ export const KEY_SIZE = {
   REGULAR: 'regular',
   LARGE: 'large',
 };
+
+export const KEYBOARD_KEYS = {
+  FIRST_ROW: [...'qwertyuiop'],
+  SECOND_ROW: [...'asdfghjkl'],
+  THIRD_ROW: [...'zxcvbnm'],
+};

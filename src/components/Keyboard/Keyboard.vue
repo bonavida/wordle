@@ -51,7 +51,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState, mapGetters, mapActions } from 'vuex';
-import { WORD_LENGTH, KEYBOARD_EVENT_KEY, KEY_SIZE } from '@constants/game';
+import {
+  WORD_LENGTH,
+  KEYBOARD_EVENT_KEY,
+  KEY_SIZE,
+  KEYBOARD_KEYS,
+} from '@constants/game';
 import { isKeyboardKeyValid } from '@utils/game';
 
 export default Vue.extend({
@@ -65,15 +70,15 @@ export default Vue.extend({
     },
 
     firstRow(): Array<string> {
-      return [...'qwertyuiop'];
+      return KEYBOARD_KEYS.FIRST_ROW;
     },
 
     secondRow(): Array<string> {
-      return [...'asdfghjkl'];
+      return KEYBOARD_KEYS.SECOND_ROW;
     },
 
     thirdRow(): Array<string> {
-      return [...'zxcvbnm'];
+      return KEYBOARD_KEYS.THIRD_ROW;
     },
 
     keyLargeSize() {
@@ -106,13 +111,13 @@ export default Vue.extend({
     },
 
     handlePressEnter() {
-      if (!this.isCurrentWordFilled) return;
+      if (this.isGameOver || !this.isCurrentWordFilled) return;
 
       this.submitWord();
     },
 
     handlePressBackspace() {
-      if (this.isCurrentWordEmpty) return;
+      if (this.isGameOver || this.isCurrentWordEmpty) return;
 
       this.removeLetter();
     },

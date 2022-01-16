@@ -1,0 +1,244 @@
+<template>
+  <transition name="modal-fade" @enter="showContent = true">
+    <div
+      v-show="show"
+      :id="id"
+      class="modal__backdrop"
+      :class="modalClass"
+      tabindex="0"
+      @mousedown="emitClose"
+      @keydown.esc="emitClose"
+    >
+      <transition name="modal-slide">
+        <div v-if="showContent" class="modal__wrapper" @mousedown.stop>
+          <header class="modal__header">
+            <slot name="header">
+              <h2>Default title</h2>
+            </slot>
+            <div @click="emitClose">
+              <CloseIcon class="modal__close" />
+            </div>
+          </header>
+
+          <section class="modal__body">
+            <slot name="body"> Default body </slot>
+          </section>
+
+          <footer v-if="showFooter" class="modal__footer">
+            <slot name="footer">
+              <button
+                type="button"
+                class="modal__button"
+                aria-label="Cancel"
+                @click="emitClose"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="modal__button modal__button--blue"
+                aria-label="Close"
+                @click="emitClose"
+              >
+                Save
+              </button>
+            </slot>
+          </footer>
+        </div>
+      </transition>
+    </div>
+  </transition>
+</template>
+
+<script>
+export default {
+  props: {
+    id: {
+      type: String,
+      default: '',
+    },
+    show: {
+      type: Boolean,
+      default: false,
+    },
+    isNaked: {
+      type: Boolean,
+      default: false,
+    },
+    className: {
+      type: String,
+      default: '',
+    },
+  },
+  data() {
+    return {
+      showContent: false,
+    };
+  },
+  computed: {
+    showFooter() {
+      return !this.isNaked;
+    },
+
+    modalClass() {
+      return this.className || undefined;
+    },
+  },
+  watch: {
+    show() {
+      if (!this.show) {
+        this.showContent = false;
+      }
+    },
+  },
+  methods: {
+    emitClose() {
+      this.$emit('close');
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.modal {
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+  }
+
+  &__wrapper {
+    position: relative;
+    min-width: auto;
+    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+    transition: all 0.35s ease;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom: 1px solid #e6e6e6;
+    color: #003543;
+    background-color: #fff;
+    padding: 15px 15px 15px 25px;
+
+    h2 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 20px;
+  }
+
+  &__body {
+    position: relative;
+    padding: 20px 25px;
+    font-size: 12px;
+
+    &-sub {
+      margin-top: 3px;
+    }
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__button {
+    padding: 5px 15px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #333;
+    border: 1px solid #ccc;
+    background-color: #ffff;
+
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &--blue,
+    &--primary {
+      color: #fff;
+      background-color: #337ab7;
+      border: 1px solid #2e6da4;
+    }
+
+    &--red {
+      color: #fff;
+      background-color: #d95350;
+      border: 1px solid #d5403b;
+    }
+  }
+
+  &__close {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    color: #888;
+    fill: #888;
+
+    padding: 3px;
+  }
+}
+
+.modal-fade-enter,
+.modal-fade-leave-active {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-slide-enter,
+.modal-slide-leave-to {
+  transform: translateY(100px);
+}
+
+.modal-slide-leave,
+.modal-slide-enter-to {
+  transform: translateY(0);
+}
+
+.modal-slide-enter-active,
+.modal-slide-leave-active {
+  transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/** MEDIA QUERIES */
+
+@media only screen and (min-width: 768px) {
+  .modal__wrapper {
+    min-width: 600px;
+  }
+}
+</style>

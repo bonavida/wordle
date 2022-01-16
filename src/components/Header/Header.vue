@@ -1,9 +1,11 @@
 <template>
   <div class="header">
+    <HowTo />
     <div class="title">
       <Logo />
       <h1>Wordle</h1>
     </div>
+    <Preferences />
   </div>
 </template>
 
@@ -11,7 +13,8 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  column-gap: 20px;
   padding: 10px 20px;
   border-bottom: 1px solid #d3d3d4;
 }

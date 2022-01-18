@@ -25,6 +25,14 @@ export const INITIAL_DATA = {
     DEFAULT_EMPTY_EVALUATION,
     DEFAULT_EMPTY_EVALUATION,
   ],
+  STATISTICS_GUESSES: {
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+  },
 };
 
 export const KEYBOARD_EVENT_KEY = {
@@ -40,6 +48,8 @@ export const LETTER_STATUS = {
 
 export const LOCALSTORAGE_GAME_STATE_KEY = 'GAME_STATE';
 export const LOCALSTORAGE_PREFERENCES_KEY = 'PREFERENCES';
+export const LOCALSTORAGE_STATISTICS_KEY = 'STATISTICS';
+
 export const KEY_SIZE = {
   REGULAR: 'regular',
   LARGE: 'large',

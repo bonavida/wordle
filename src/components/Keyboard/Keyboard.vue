@@ -116,13 +116,14 @@ export default Vue.extend({
     },
 
     handlePressEnter() {
+      if (this.isGameOver) return;
       if (!this.isCurrentWordFilled) {
         this.$notifier.showToast({
           message: TOAST_MESSAGES.INCOMPLETE_WORD,
           status: TOAST_STATUS.ERROR,
         });
+        return;
       }
-      if (this.isGameOver || !this.isCurrentWordFilled) return;
 
       this.submitWord(this.$notifier);
     },

@@ -50,7 +50,8 @@ export const actions: ActionTree<RootState, RootState> = {
   populateGame({ commit, dispatch }) {
     dispatch('preferences/populatePreferences');
     commit('POPULATE_GAME');
-    dispatch('evaluations/populateEvaluations', null, { root: true });
+    dispatch('evaluations/populateEvaluations');
+    dispatch('statistics/populateStatistics');
   },
 
   addLetter(
@@ -96,6 +97,7 @@ export const actions: ActionTree<RootState, RootState> = {
         duration: 5000,
       });
       commit('UPDATE_GAME_STATUS', GAME_STATUS.WIN);
+      dispatch('statistics/registerWin', state.rowIndex);
       storeGameState(state);
       return;
     }
@@ -110,6 +112,11 @@ export const actions: ActionTree<RootState, RootState> = {
       commit('UPDATE_GAME_STATUS', GAME_STATUS.DEFEAT);
       storeGameState(state);
       return;
+    }
+
+    // If it's the first guess, increase the games played in the stats
+    if (!state.rowIndex) {
+      dispatch('statistics/increaseGamesPlayed');
     }
 
     // Next guess

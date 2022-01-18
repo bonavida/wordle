@@ -30,7 +30,7 @@ export default {
   css: ['@styles/main.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/notifier.ts'],
 
   // Aliases: https://nuxtjs.org/docs/directory-structure/nuxt-config#alias
   alias: {

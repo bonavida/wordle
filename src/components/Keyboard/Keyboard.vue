@@ -60,6 +60,7 @@ import {
   KEY_SIZE,
   KEYBOARD_KEYS,
 } from '@constants/game';
+import { TOAST_MESSAGES, TOAST_STATUS } from '@constants/toast';
 import { isKeyboardKeyValid } from '@utils/game';
 
 export default Vue.extend({
@@ -115,9 +116,15 @@ export default Vue.extend({
     },
 
     handlePressEnter() {
+      if (!this.isCurrentWordFilled) {
+        this.$notifier.showToast({
+          message: TOAST_MESSAGES.INCOMPLETE_WORD,
+          status: TOAST_STATUS.ERROR,
+        });
+      }
       if (this.isGameOver || !this.isCurrentWordFilled) return;
 
-      this.submitWord();
+      this.submitWord(this.$notifier);
     },
 
     handlePressBackspace() {

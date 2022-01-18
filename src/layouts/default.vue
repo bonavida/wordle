@@ -2,6 +2,7 @@
   <div class="layout">
     <Header />
     <Nuxt />
+    <ToastContainer />
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex';
 /** Constants */
 import { INITIAL_DATA, GAME_STATUS } from '@constants/game';
+import { TOAST_MESSAGES, TOAST_STATUS } from '@constants/toast';
 /** Types */
 import { GameState } from '@customTypes/game';
 /** Utils */
@@ -75,9 +76,13 @@ export const actions: ActionTree<RootState, RootState> = {
     commit('UPDATE_BOARD', updatedBoard);
   },
 
-  submitWord({ commit, state, getters, dispatch }) {
+  submitWord({ commit, state, getters, dispatch }, $notifier) {
     // Check if the word is gramatically valid
     if (!isWordValid(getters.currentWord)) {
+      $notifier.showToast({
+        message: TOAST_MESSAGES.INVALID_WORD,
+        status: TOAST_STATUS.ERROR,
+      });
       return;
     }
 
@@ -85,6 +90,11 @@ export const actions: ActionTree<RootState, RootState> = {
 
     // Check if the current word is the winning word
     if (getters.currentWord === state.solution) {
+      $notifier.showToast({
+        message: TOAST_MESSAGES.WIN[state.rowIndex],
+        status: TOAST_STATUS.SUCCESS,
+        duration: 5000,
+      });
       commit('UPDATE_GAME_STATUS', GAME_STATUS.WIN);
       storeGameState(state);
       return;
@@ -92,6 +102,11 @@ export const actions: ActionTree<RootState, RootState> = {
 
     // Check if the game is over
     if (state.rowIndex === state.board.length - 1) {
+      $notifier.showToast({
+        message: TOAST_MESSAGES.DEFEAT(state.solution),
+        status: TOAST_STATUS.ERROR,
+        isStatic: true,
+      });
       commit('UPDATE_GAME_STATUS', GAME_STATUS.DEFEAT);
       storeGameState(state);
       return;

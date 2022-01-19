@@ -1,5 +1,5 @@
 <template>
-  <div ref="main" class="content">
+  <div class="content">
     <div class="wrapper">
       <Board />
     </div>
@@ -25,11 +25,14 @@ export default Vue.extend({
   mounted() {
     this.confetti = canvasConfetti.create(this.$refs.confetti);
 
-    // Fire confetti when the users win
     this.unwatch = this.$store.watch(
       (state) => state.status,
       (newValue) => {
-        if (newValue === GAME_STATUS.WIN) {
+        // Fire confetti only right after the user wins
+        if (
+          newValue === GAME_STATUS.WIN &&
+          this.$store.state.hasUserInteracted
+        ) {
           // Make it rain!
           this.confetti({
             particleCount: 100,

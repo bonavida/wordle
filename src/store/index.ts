@@ -15,6 +15,7 @@ export const state = (): GameState => ({
   rowIndex: ROW_INDEX,
   status: STATUS,
   solution: '',
+  hasUserInteracted: false,
 });
 
 export type RootState = ReturnType<typeof state>;
@@ -44,6 +45,10 @@ export const mutations: MutationTree<RootState> = {
   UPDATE_GAME_STATUS: (state, status) => {
     state.status = status;
   },
+
+  SET_USER_INTERACTION: (state) => {
+    state.hasUserInteracted = true;
+  },
 };
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -55,12 +60,20 @@ export const actions: ActionTree<RootState, RootState> = {
   },
 
   addLetter(
-    { commit, state: { board, rowIndex }, getters: { currentWord } },
+    {
+      commit,
+      state: { board, rowIndex, hasUserInteracted },
+      getters: { currentWord },
+    },
     letter
   ) {
     const updatedWord = `${currentWord}${letter}`;
     const updatedBoard = [...board];
     updatedBoard[rowIndex] = updatedWord;
+
+    if (!hasUserInteracted) {
+      commit('SET_USER_INTERACTION');
+    }
 
     commit('UPDATE_BOARD', updatedBoard);
   },

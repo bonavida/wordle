@@ -14,21 +14,23 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import { mapState } from 'vuex';
+import { ToastState } from '@customTypes/toast';
 import { getRandomId } from '@utils/toast';
 
-export default {
+export default Vue.extend({
   data() {
     return {
-      toasts: [],
+      toasts: [] as Array<ToastState>,
     };
   },
   computed: {
     ...mapState('preferences', ['colorBlindMode']),
   },
   methods: {
-    handleDismissToast(idToDelete) {
+    handleDismissToast(idToDelete: number) {
       const index = this.toasts.findIndex(({ id }) => id === idToDelete);
       this.toasts.splice(index, 1);
     },
@@ -37,12 +39,12 @@ export default {
     this.$store.subscribeAction((action) => {
       if (action.type === 'toast/showToast') {
         const toastId = getRandomId();
-        const toast = { ...action.payload, id: toastId };
+        const toast: ToastState = { ...action.payload, id: toastId };
         this.toasts.push(toast);
       }
     });
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

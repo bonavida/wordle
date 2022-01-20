@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <svg
     id="Stats_Icon"
     version="1.1"

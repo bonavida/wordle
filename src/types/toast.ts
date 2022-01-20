@@ -6,6 +6,7 @@ export type ToastStatus =
   | typeof TOAST_STATUS.DEFAULT;
 
 export interface ToastState {
+  id?: number;
   message: string;
   status?: ToastStatus;
   duration?: Number;

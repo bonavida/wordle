@@ -9,8 +9,11 @@
   </transition>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+import { ComputedClass } from '@customTypes/common';
+
+export default Vue.extend({
   props: {
     id: {
       type: Number,
@@ -39,15 +42,15 @@ export default {
   },
   data() {
     return {
-      timeout: null,
+      timerId: 0,
     };
   },
   computed: {
-    hasStatus() {
+    hasStatus(): boolean {
       return !!this.status;
     },
 
-    toastClasses() {
+    toastClasses(): ComputedClass {
       return {
         toast: true,
         [`toast--${this.status}`]: this.hasStatus,
@@ -67,14 +70,14 @@ export default {
   mounted() {
     if (this.isStatic) return;
 
-    this.timeout = setTimeout(() => {
+    this.timerId = window.setTimeout(() => {
       this.emitDismissToast();
     }, this.duration);
   },
   beforeDestroy() {
-    clearTimeout(this.timeout);
+    clearTimeout(this.timerId);
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -5,6 +5,7 @@
     </div>
     <Keyboard />
     <canvas ref="confetti" class="canvas" width="500" height="500"></canvas>
+    <WinModal :show-modal="showWinModal" @toggle="toggleWinModal" />
   </div>
 </template>
 
@@ -20,7 +21,13 @@ export default Vue.extend({
     return {
       confetti: (options: any) => options,
       unwatch: () => {},
+      showWinModal: false,
     };
+  },
+  methods: {
+    toggleWinModal() {
+      this.showWinModal = !this.showWinModal;
+    },
   },
   mounted() {
     this.confetti = canvasConfetti.create(this.$refs.confetti);
@@ -28,11 +35,11 @@ export default Vue.extend({
     this.unwatch = this.$store.watch(
       (state) => state.status,
       (newValue) => {
+        if (newValue !== GAME_STATUS.WIN) return;
+        // If the user wins, open modal
+        this.toggleWinModal();
         // Fire confetti only right after the user wins
-        if (
-          newValue === GAME_STATUS.WIN &&
-          this.$store.state.hasUserInteracted
-        ) {
+        if (this.$store.state.hasUserInteracted) {
           // Make it rain!
           this.confetti({
             particleCount: 100,

@@ -60,3 +60,9 @@ export const KEYBOARD_KEYS = {
   SECOND_ROW: [...'asdfghjkl'],
   THIRD_ROW: [...'zxcvbnm'],
 };
+
+export const SQUARE_EMOJIS = {
+  [LETTER_STATUS.ABSENT]: '⬛',
+  [LETTER_STATUS.PRESENT]: '🟨',
+  [LETTER_STATUS.CORRECT]: '🟩',
+};

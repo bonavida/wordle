@@ -17,8 +17,8 @@ export const state = (): StatisticsState => ({
 });
 
 export const getters: GetterTree<StatisticsState, RootState> = {
-  winPercentage: ({ gamesWon, gamesPlayed }): number =>
-    gamesPlayed ? (gamesWon / gamesPlayed) * 100 : 0,
+  winPercentage: ({ gamesWon, gamesPlayed }): string =>
+    `${gamesPlayed ? (gamesWon / gamesPlayed) * 100 : 0}%`,
 };
 
 export const mutations: MutationTree<StatisticsState> = {

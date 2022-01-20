@@ -124,7 +124,7 @@ export default Vue.extend({
   &__wrapper {
     position: relative;
     min-width: auto;
-    max-width: 500px;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
     background-color: #fff;

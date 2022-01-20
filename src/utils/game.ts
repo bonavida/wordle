@@ -4,9 +4,13 @@ import {
   KEYBOARD_EVENT_KEY,
   LETTER_STATUS,
   DEFAULT_EMPTY_EVALUATION,
+  SQUARE_EMOJIS,
 } from '@constants/game';
 /** Types */
 import { LetterEvaluation } from '@customTypes/evaluations';
+import { GameStatus } from '@customTypes/game';
+import { ToastNotifier } from '@customTypes/toast';
+import { TOAST_STATUS } from '@constants/toast';
 
 export const isKeyboardKeyValid = (key: string): boolean =>
   /^[a-zA-Z]$/.test(key) ||
@@ -103,4 +107,28 @@ export const evaluateWordStatus = (
     .flat()
     .sort((a, b) => a.index - b.index)
     .map(({ status }) => status);
+};
+
+export const copyToClipboard = (
+  guessesText: string,
+  guesses: Array<Array<string>>,
+  $notifier: ToastNotifier
+) => {
+  const partialText = guesses.reduce((acc: string, row: Array<string>) => {
+    const rowText = row
+      .map((status: GameStatus) => SQUARE_EMOJIS[status])
+      .join();
+    return `${acc}${rowText}\n`;
+  }, `Wordle ${guessesText}\n\n` as string);
+
+  const totalText = `\n${partialText}\nhttps://wordle.bonavida.dev`;
+
+  // Copy text to clipboard
+  navigator.clipboard.writeText(totalText);
+
+  $notifier.showToast({
+    message: 'Solution copied to the clipboard!',
+    status: TOAST_STATUS.SUCCESS,
+    duration: 4000,
+  });
 };

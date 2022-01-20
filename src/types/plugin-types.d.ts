@@ -1,10 +1,8 @@
-import { ToastState } from '@customTypes/toast';
+import { ToastNotifier } from '@customTypes/toast';
 
 // Source to type a custom plugin: https://typescript.nuxtjs.org/es/cookbook/plugins/
 declare module 'vue/types/vue' {
   interface Vue {
-    $notifier: {
-      showToast: (payload: ToastState) => void;
-    };
+    $notifier: ToastNotifier;
   }
 }

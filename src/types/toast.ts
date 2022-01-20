@@ -11,3 +11,7 @@ export interface ToastState {
   duration?: Number;
   isStatic?: Boolean;
 }
+
+export interface ToastNotifier {
+  showToast: (payload: ToastState) => void;
+}

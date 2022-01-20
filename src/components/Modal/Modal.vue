@@ -123,7 +123,7 @@ export default Vue.extend({
 
   &__wrapper {
     position: relative;
-    min-width: auto;
+    width: 100%;
     max-width: 450px;
     display: flex;
     flex-direction: column;

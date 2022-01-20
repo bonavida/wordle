@@ -36,10 +36,17 @@ export default Vue.extend({
       (state) => state.status,
       (newValue) => {
         if (newValue !== GAME_STATUS.WIN) return;
+
+        const { hasUserInteracted } = this.$store.state;
+        const modalTimeoutInMs = hasUserInteracted ? 2000 : 0;
+
         // If the user wins, open modal
-        this.toggleWinModal();
+        setTimeout(() => {
+          this.toggleWinModal();
+        }, modalTimeoutInMs);
+
         // Fire confetti only right after the user wins
-        if (this.$store.state.hasUserInteracted) {
+        if (hasUserInteracted) {
           // Make it rain!
           this.confetti({
             particleCount: 100,

@@ -16,7 +16,11 @@
               <div
                 v-for="(letterStatus, letterIndex) in wordStatus"
                 :key="`guess_letter_${letterIndex}`"
-                :class="`modal__solution-letter modal__solution-letter--${letterStatus}`"
+                :class="{
+                  'modal__solution-letter': true,
+                  [`modal__solution-letter--${letterStatus}`]: true,
+                  'modal__solution-letter--colorblind': colorBlindMode,
+                }"
               ></div>
             </div>
           </div>
@@ -36,7 +40,11 @@
         </div>
       </div>
       <div class="modal__footer">
-        <button class="modal__button" @click="handleCopyToClipboard">
+        <button
+          class="modal__button"
+          :class="{ 'modal__button--colorblind': colorBlindMode }"
+          @click="handleCopyToClipboard"
+        >
           <CopyIcon class="modal__button-icon" />
           Copy solution
         </button>
@@ -47,7 +55,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { LetterEvaluation } from '@customTypes/evaluations';
 import { copyToClipboard } from '@utils/game';
 
@@ -72,18 +80,22 @@ export default Vue.extend({
     ...mapState(['rowIndex']),
     ...mapState('statistics', ['gamesPlayed']),
     ...mapState('evaluations', ['words']),
+    ...mapState('preferences', ['colorBlindMode']),
     ...mapGetters({ winPercentage: 'statistics/winPercentage' }),
   },
   methods: {
     handleCopyToClipboard() {
-      copyToClipboard(this.guessesText, this.filteredGuesses, this.$notifier);
+      copyToClipboard(
+        this.guessesText,
+        this.filteredGuesses,
+        this.colorBlindMode,
+        this.$notifier
+      );
     },
 
     emitToggleModal() {
       this.$emit('toggle');
     },
-
-    ...mapActions({ changeColorBlindMode: 'preferences/changeColorBlindMode' }),
   },
 });
 </script>
@@ -161,6 +173,20 @@ export default Vue.extend({
       background-color: #41b883;
       border-color: #23a169;
     }
+
+    &--colorblind {
+      &.modal__solution-letter {
+        &--present {
+          background-color: #85c0f9;
+          border-color: #85c0f9;
+        }
+
+        &--correct {
+          background-color: #f5793a;
+          border-color: #f5793a;
+        }
+      }
+    }
   }
 
   &__stats {
@@ -221,6 +247,16 @@ export default Vue.extend({
       fill: #fff;
       width: 1.2rem;
       height: 1.2rem;
+    }
+
+    &--colorblind {
+      background-color: #f5793a;
+      border-color: #f5793a;
+
+      &:hover {
+        background-color: #f3631a;
+        border-color: #f3631a;
+      }
     }
   }
 }

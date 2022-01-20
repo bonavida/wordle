@@ -32,6 +32,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isColorBlind: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -47,6 +51,7 @@ export default {
       return {
         toast: true,
         [`toast--${this.status}`]: this.hasStatus,
+        'toast--colorblind': this.isColorBlind,
       };
     },
   },
@@ -118,6 +123,20 @@ export default {
 
     span {
       color: #fff;
+    }
+  }
+
+  &--colorblind {
+    &.toast {
+      &--success {
+        background-color: #f5793a;
+        border-color: #f5793a;
+      }
+
+      &--error {
+        background-color: #35495e;
+        border-color: #35495e;
+      }
     }
   }
 }

@@ -62,7 +62,13 @@ export const KEYBOARD_KEYS = {
 };
 
 export const SQUARE_EMOJIS = {
-  [LETTER_STATUS.ABSENT]: '⬛',
+  [LETTER_STATUS.ABSENT]: '⬜',
   [LETTER_STATUS.PRESENT]: '🟨',
   [LETTER_STATUS.CORRECT]: '🟩',
+};
+
+export const COLORBLIND_SQUARE_EMOJIS = {
+  [LETTER_STATUS.ABSENT]: '⬜',
+  [LETTER_STATUS.PRESENT]: '🟦',
+  [LETTER_STATUS.CORRECT]: '🟧',
 };

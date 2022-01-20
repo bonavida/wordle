@@ -8,12 +8,14 @@
       :status="status"
       :duration="duration"
       :is-static="isStatic"
+      :is-color-blind="colorBlindMode"
       @dismiss="handleDismissToast"
     />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { getRandomId } from '@utils/toast';
 
 export default {
@@ -21,6 +23,9 @@ export default {
     return {
       toasts: [],
     };
+  },
+  computed: {
+    ...mapState('preferences', ['colorBlindMode']),
   },
   methods: {
     handleDismissToast(idToDelete) {

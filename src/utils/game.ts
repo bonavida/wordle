@@ -5,6 +5,7 @@ import {
   LETTER_STATUS,
   DEFAULT_EMPTY_EVALUATION,
   SQUARE_EMOJIS,
+  COLORBLIND_SQUARE_EMOJIS,
 } from '@constants/game';
 /** Types */
 import { LetterEvaluation } from '@customTypes/evaluations';
@@ -112,11 +113,14 @@ export const evaluateWordStatus = (
 export const copyToClipboard = (
   guessesText: string,
   guesses: Array<Array<string>>,
+  isColorBlind: boolean = false,
   $notifier: ToastNotifier
 ) => {
   const partialText = guesses.reduce((acc: string, row: Array<string>) => {
     const rowText = row
-      .map((status: GameStatus) => SQUARE_EMOJIS[status])
+      .map((status: GameStatus) =>
+        isColorBlind ? COLORBLIND_SQUARE_EMOJIS[status] : SQUARE_EMOJIS[status]
+      )
       .join('');
     return `${acc}${rowText}\n`;
   }, `Wordle ${guessesText}\n\n` as string);

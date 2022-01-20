@@ -121,7 +121,7 @@ export const copyToClipboard = (
     return `${acc}${rowText}\n`;
   }, `Wordle ${guessesText}\n\n` as string);
 
-  const totalText = `\n${partialText}\nhttps://wordle.bonavida.dev`;
+  const totalText = `${partialText}\nhttps://wordle.bonavida.dev`;
 
   // Copy text to clipboard
   navigator.clipboard.writeText(totalText);

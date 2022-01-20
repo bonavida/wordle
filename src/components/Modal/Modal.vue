@@ -12,37 +12,18 @@
       <transition name="modal-slide">
         <div v-if="showContent" class="modal__wrapper" @mousedown.stop>
           <header class="modal__header">
-            <slot name="header">
-              <h2>Default title</h2>
-            </slot>
+            <slot name="header" />
             <div @click="emitClose">
               <CloseIcon class="modal__close" />
             </div>
           </header>
 
           <section class="modal__body">
-            <slot name="body"> Default body </slot>
+            <slot name="body" />
           </section>
 
           <footer v-if="showFooter" class="modal__footer">
-            <slot name="footer">
-              <button
-                type="button"
-                class="modal__button"
-                aria-label="Cancel"
-                @click="emitClose"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                class="modal__button modal__button--blue"
-                aria-label="Close"
-                @click="emitClose"
-              >
-                Save
-              </button>
-            </slot>
+            <slot name="footer" />
           </footer>
         </div>
       </transition>
@@ -154,15 +135,16 @@ export default Vue.extend({
 
   &__footer {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px 20px;
+    flex-direction: column;
+    border-top: 1px solid #e6e6e6;
+    padding: 20px;
   }
 
   &__body {
     position: relative;
     padding: 20px 25px;
     font-size: 12px;
+    overflow: auto;
 
     &-sub {
       margin-top: 3px;
@@ -244,7 +226,8 @@ export default Vue.extend({
 
 @media (max-width: 480px) {
   .modal__wrapper {
-    width: 90%;
+    max-width: 90%;
+    max-height: 90%;
   }
 }
 </style>

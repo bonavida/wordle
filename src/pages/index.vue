@@ -11,15 +11,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { GAME_STATUS } from '@constants/game';
+import * as confetti from 'canvas-confetti';
 
-const canvasConfetti = require('canvas-confetti');
+import { GAME_STATUS } from '@constants/game';
 
 export default Vue.extend({
   name: 'IndexPage',
   data() {
     return {
-      confetti: (options: any) => options,
       unwatch: () => {},
       showWinModal: false,
     };
@@ -30,8 +29,6 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.confetti = canvasConfetti.create(this.$refs.confetti);
-
     this.unwatch = this.$store.watch(
       (state) => state.status,
       (newValue) => {
@@ -48,7 +45,7 @@ export default Vue.extend({
         // Fire confetti only right after the user wins
         if (hasUserInteracted) {
           // Make it rain!
-          this.confetti({
+          confetti.create(this.$refs.confetti)({
             particleCount: 100,
             spread: 70,
             origin: { y: 1 },
@@ -86,9 +83,13 @@ export default Vue.extend({
 }
 
 .canvas {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   pointer-events: none;
+  z-index: 100;
 }
 
 @media (max-width: 480px) {

@@ -117,7 +117,7 @@ export const copyToClipboard = (
   const partialText = guesses.reduce((acc: string, row: Array<string>) => {
     const rowText = row
       .map((status: GameStatus) => SQUARE_EMOJIS[status])
-      .join();
+      .join('');
     return `${acc}${rowText}\n`;
   }, `Wordle ${guessesText}\n\n` as string);
 

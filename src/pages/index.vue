@@ -93,8 +93,13 @@ export default Vue.extend({
 
 @media (max-width: 480px) {
   .content {
-    row-gap: 0;
-    margin: 0 auto;
+    justify-content: flex-start;
+    row-gap: 20px;
+    margin: 20px auto;
+  }
+
+  .wrapper {
+    flex: unset;
   }
 }
 </style>

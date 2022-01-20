@@ -169,4 +169,10 @@ export default Vue.extend({
     height: 1.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  .keyboard {
+    margin-top: unset;
+  }
+}
 </style>

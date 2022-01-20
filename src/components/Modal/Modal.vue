@@ -242,9 +242,9 @@ export default Vue.extend({
 
 /** MEDIA QUERIES */
 
-@media only screen and (min-width: 480px) {
+@media (max-width: 480px) {
   .modal__wrapper {
-    width: 100%;
+    width: 90%;
   }
 }
 </style>

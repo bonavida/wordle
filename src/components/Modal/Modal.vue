@@ -190,8 +190,8 @@ export default Vue.extend({
     width: 1.5rem;
     height: 1.5rem;
     cursor: pointer;
-    color: #888;
     fill: #888;
+    stroke: #888;
 
     padding: 3px;
   }

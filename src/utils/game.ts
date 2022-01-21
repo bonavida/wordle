@@ -7,11 +7,11 @@ import {
   SQUARE_EMOJIS,
   COLORBLIND_SQUARE_EMOJIS,
 } from '@constants/game';
+import { TOAST_STATUS } from '@constants/toast';
 /** Types */
 import { LetterEvaluation } from '@customTypes/evaluations';
 import { GameStatus } from '@customTypes/game';
 import { ToastNotifier } from '@customTypes/toast';
-import { TOAST_STATUS } from '@constants/toast';
 
 export const isKeyboardKeyValid = (key: string): boolean =>
   /^[a-zA-Z]$/.test(key) ||
@@ -135,4 +135,15 @@ export const copyToClipboard = (
     status: TOAST_STATUS.SUCCESS,
     duration: 4000,
   });
+};
+
+export const needsToResetCurrentStreak = (lastWon: number | undefined) => {
+  if (!lastWon) return true;
+  const lastWonDate = new Date(lastWon);
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setHours(0);
+  yesterday.setMinutes(0);
+  yesterday.setSeconds(0, 0);
+  return lastWonDate < yesterday;
 };

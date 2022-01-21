@@ -14,6 +14,7 @@ export const state = (): StatisticsState => ({
   currentStreak: 0,
   maxStreak: 0,
   guesses: INITIAL_DATA.STATISTICS_GUESSES,
+  lastWon: 0,
 });
 
 export const getters: GetterTree<StatisticsState, RootState> = {
@@ -35,8 +36,12 @@ export const mutations: MutationTree<StatisticsState> = {
   REGISTER_WIN: (state, rowIndex) => {
     state.gamesWon++;
     state.currentStreak++;
-    state.maxStreak++;
     state.guesses[rowIndex]++;
+    state.lastWon = Date.now();
+
+    if (state.currentStreak > state.maxStreak) {
+      state.maxStreak = state.currentStreak;
+    }
   },
 };
 

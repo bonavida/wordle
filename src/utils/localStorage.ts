@@ -10,6 +10,8 @@ import {
 import { GameState } from '@customTypes/game';
 import { PreferencesState } from '@customTypes/preferences';
 import { StatisticsState } from '@customTypes/statistics';
+/** Utils */
+import { needsToResetCurrentStreak } from '@utils/game';
 
 export const getStoredGameState = (initialState: GameState): GameState => {
   const solution = getDailyWord();
@@ -70,7 +72,16 @@ export const getStoredStatistics = (): StatisticsState | undefined => {
   if (!process.client) return;
   const statistics = localStorage.getItem(LOCALSTORAGE_STATISTICS_KEY);
   if (!statistics) return;
-  return JSON.parse(statistics);
+  const parsedStatistics = JSON.parse(statistics);
+  const updatedCurrentStreak = needsToResetCurrentStreak(
+    parsedStatistics.lastWon
+  )
+    ? 0
+    : parsedStatistics.currentStreak;
+  return {
+    ...parsedStatistics,
+    currentStreak: updatedCurrentStreak,
+  };
 };
 
 export const storeStatistics = (statistics: StatisticsState) => {

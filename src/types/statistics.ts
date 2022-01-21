@@ -8,4 +8,5 @@ export interface StatisticsState {
   currentStreak: number;
   maxStreak: number;
   guesses: Guesses;
+  lastWon: number;
 }

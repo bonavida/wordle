@@ -32,7 +32,3 @@ yarn dev
 - Dark mode
 - Try words with different length (up to 10 letters)
 - i18n
-
-## Credits and license
-
-Licensed under MIT.

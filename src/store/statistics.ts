@@ -43,9 +43,17 @@ export const mutations: MutationTree<StatisticsState> = {
       state.maxStreak = state.currentStreak;
     }
   },
+
+  REGISTER_DEFEAT: (state) => {
+    state.currentStreak = 0;
+  },
 };
 
 export const actions: ActionTree<StatisticsState, RootState> = {
+  populateStatistics({ commit }) {
+    commit('POPULATE_STATISTICS');
+  },
+
   increaseGamesPlayed({ commit, state }, value: boolean) {
     commit('INCREASE_GAMES_PLAYED', value);
     storeStatistics(state);
@@ -56,7 +64,8 @@ export const actions: ActionTree<StatisticsState, RootState> = {
     storeStatistics(state);
   },
 
-  populateStatistics({ commit }) {
-    commit('POPULATE_STATISTICS');
+  registerDefeat({ commit, state }) {
+    commit('REGISTER_DEFEAT');
+    storeStatistics(state);
   },
 };

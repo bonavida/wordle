@@ -73,7 +73,7 @@
           /></a>
         </p>
         <p class="note">
-          This game is my own adaptation of the original
+          This is is my own adaptation of the original word-guessing game
           <a
             href="https://www.powerlanguage.co.uk/wordle/"
             target="_blank"
@@ -81,7 +81,7 @@
             class="link"
             >Wordle</a
           >
-          game developed by
+          developed by
           <a
             href="https://www.powerlanguage.co.uk/"
             target="_blank"

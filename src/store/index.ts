@@ -123,6 +123,7 @@ export const actions: ActionTree<RootState, RootState> = {
         isStatic: true,
       });
       commit('UPDATE_GAME_STATUS', GAME_STATUS.DEFEAT);
+      dispatch('statistics/registerDefeat');
       storeGameState(state);
       return;
     }

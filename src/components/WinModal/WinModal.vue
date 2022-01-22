@@ -36,6 +36,14 @@
               <span class="modal__stat-value">{{ winPercentage }}</span>
               <span class="modal__stat-label">Win rate</span>
             </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">{{ currentStreak }}</span>
+              <span class="modal__stat-label">Current streak</span>
+            </div>
+            <div class="modal__stat">
+              <span class="modal__stat-value">{{ maxStreak }}</span>
+              <span class="modal__stat-label">Max streak</span>
+            </div>
           </div>
         </div>
       </div>
@@ -78,7 +86,7 @@ export default Vue.extend({
     },
 
     ...mapState(['rowIndex']),
-    ...mapState('statistics', ['gamesPlayed']),
+    ...mapState('statistics', ['gamesPlayed', 'currentStreak', 'maxStreak']),
     ...mapState('evaluations', ['words']),
     ...mapState('preferences', ['colorBlindMode']),
     ...mapGetters({ winPercentage: 'statistics/winPercentage' }),
@@ -132,7 +140,7 @@ export default Vue.extend({
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 10px;
+    row-gap: 20px;
   }
 
   &__section-title {
@@ -191,8 +199,7 @@ export default Vue.extend({
 
   &__stats {
     display: flex;
-    align-items: center;
-    column-gap: 25px;
+    column-gap: 15px;
   }
 
   &__stat {
@@ -211,6 +218,7 @@ export default Vue.extend({
   &__stat-label {
     color: #093e4d;
     font-size: 12px;
+    text-align: center;
   }
 
   &__footer {

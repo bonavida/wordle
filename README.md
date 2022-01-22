@@ -6,6 +6,12 @@ This game is my own adaptation of the original [Wordle](https://www.powerlanguag
 
 Website: https://wordle.bonavida.dev
 
+## Tech
+
+- Vue
+- Nuxt.js
+- TypeScript
+
 ## Development
 
 If you want to run it locally, you just need to install all the dependencies

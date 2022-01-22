@@ -16,7 +16,7 @@
   justify-content: space-between;
   column-gap: 20px;
   padding: 10px 20px;
-  border-bottom: 1px solid #d3d3d4;
+  border-bottom: 1px solid var(--header-border);
 }
 
 .title {

@@ -69,7 +69,7 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   flex: 1 1 0%;
-  background-color: #e4e6e7;
+  background-color: var(--bg-keyboard);
   border: 0;
   border-radius: 4px;
   color: #003543;

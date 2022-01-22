@@ -26,7 +26,7 @@
 }
 
 h1 {
-  color: #003543;
+  color: var(--color);
   font-size: 28px;
   font-weight: 700;
 }

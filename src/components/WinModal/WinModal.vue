@@ -125,7 +125,7 @@ export default Vue.extend({
 
 .modal {
   &__title {
-    color: #003543;
+    color: var(--color);
     font-size: 18px;
     font-weight: bold;
   }
@@ -144,7 +144,7 @@ export default Vue.extend({
   }
 
   &__section-title {
-    color: #003543;
+    color: var(--color);
     font-size: 16px;
     font-weight: bold;
   }
@@ -168,8 +168,8 @@ export default Vue.extend({
     border-radius: 2px;
 
     &--absent {
-      background-color: #35495e;
-      border-color: #35495e;
+      background-color: var(--bg-modal-solution-absent);
+      border-color: var(--bg-modal-solution-absent);
     }
 
     &--present {
@@ -210,13 +210,13 @@ export default Vue.extend({
   }
 
   &__stat-value {
-    color: #0a3e4d;
+    color: var(--color);
     font-size: 24px;
     font-weight: bold;
   }
 
   &__stat-label {
-    color: #093e4d;
+    color: var(--color-secondary);
     font-size: 12px;
     text-align: center;
   }

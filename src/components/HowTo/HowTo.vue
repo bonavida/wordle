@@ -132,8 +132,8 @@ export default Vue.extend({
 .header__icon {
   width: 1.4rem;
   height: 1.4rem;
-  fill: #003543;
-  stroke: #003543;
+  fill: var(--color);
+  stroke: var(--color);
   cursor: pointer;
 }
 
@@ -157,7 +157,7 @@ export default Vue.extend({
 }
 
 .link {
-  color: #003543;
+  color: var(--color);
   font-size: 12px;
   font-weight: bold;
   text-decoration: underline;
@@ -191,7 +191,7 @@ export default Vue.extend({
 }
 
 p {
-  color: #003543;
+  color: var(--color);
   font-size: 14px;
 
   &.note {
@@ -211,7 +211,7 @@ p {
 }
 
 h4 {
-  color: #003543;
+  color: var(--color);
   font-size: 16px;
   margin: 1.3rem 0;
 }

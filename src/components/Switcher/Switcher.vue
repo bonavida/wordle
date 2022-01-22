@@ -61,9 +61,9 @@ export default Vue.extend({
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #003543;
+    background-color: var(--bg-switch);
     border-radius: 36px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     cursor: pointer;
 
     &:before {
@@ -76,7 +76,7 @@ export default Vue.extend({
       background-color: #fff;
       border-radius: 50%;
       transform: translateX(0);
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
     }
   }
 }

@@ -94,12 +94,13 @@ export default Vue.extend({
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--bg-modal-backdrop);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9998;
+    transition: all 0.2 linear;
   }
 
   &__wrapper {
@@ -108,11 +109,11 @@ export default Vue.extend({
     max-width: 450px;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
     border-radius: 6px;
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
-    transition: all 0.35s ease;
+    box-shadow: 0 0 7px var(--box-shadow-modal);
+    transition: all 0.2 linear;
   }
 
   &__header {
@@ -121,10 +122,11 @@ export default Vue.extend({
     justify-content: space-between;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    border-bottom: 1px solid #e6e6e6;
-    color: #003543;
-    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--color);
+    background-color: var(--bg-secondary);
     padding: 15px 15px 15px 25px;
+    transition: all 0.2 linear;
 
     h2 {
       margin: 0;
@@ -136,8 +138,9 @@ export default Vue.extend({
   &__footer {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid var(--border-color);
     padding: 20px;
+    transition: all 0.2 linear;
   }
 
   &__body {

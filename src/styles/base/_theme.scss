@@ -1,0 +1,29 @@
+:root {
+  --color: #003543;
+  --color-secondary: #003543;
+  --bg: #fff;
+  --bg-modal-backdrop: rgba(255, 255, 255, 0.3);
+  --bg-secondary: #fff;
+  --bg-switch: #003543;
+  --border-color: #e6e6e6;
+  --border-color-secondary: #878a8c;
+  --box-shadow-modal: rgba(0, 0, 0, 0.1);
+  --bg-letter-filled: #fff;
+  --bg-keyboard: #e4e6e7;
+  --bg-modal-solution-absent: #35495e;
+}
+
+.dark-mode {
+  --color: #ebf4f1;
+  --color-secondary: #b2bcc7;
+  --bg: #1a202c;
+  --bg-modal-backdrop: rgba(0, 0, 0, 0.3);
+  --bg-secondary: #2d3848;
+  --bg-switch: #657387;
+  --border-color: #5a5f68;
+  --border-color-secondary: #7d818a;
+  --box-shadow-modal: rgba(255, 255, 255, 0.1);
+  --bg-letter-filled: #455368;
+  --bg-keyboard: #cbd5df;
+  --bg-modal-solution-absent: #767c87;
+}

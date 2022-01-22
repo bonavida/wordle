@@ -3,13 +3,13 @@
     <defs>
       <style>
         .a {
-          fill: #003543;
-          stroke: #003543;
+          fill: var(--color);
+          stroke: var(--color);
           stroke-linecap: round;
           stroke-linejoin: round;
         }
         .b {
-          fill: #fff;
+          fill: var(--bg);
         }
       </style>
     </defs>

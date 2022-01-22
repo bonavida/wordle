@@ -50,8 +50,8 @@ export default Vue.extend({
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
-  border: 2px solid #ddd;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 3px;
   color: #fff;
   font-size: 2rem;
@@ -62,8 +62,9 @@ export default Vue.extend({
   user-select: none;
 
   &--filled {
-    color: #003543;
-    border-color: #878a8c;
+    background-color: var(--bg-letter-filled);
+    color: var(--color);
+    border-color: var(--border-color-secondary);
   }
 
   &--absent {

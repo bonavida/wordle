@@ -16,8 +16,18 @@
         <div class="preferences">
           <div class="preference">
             <div class="preference__wrapper">
+              <h4 class="preference__title">Dark Mode</h4>
+            </div>
+            <Switcher
+              name="darkMode"
+              :value="darkMode"
+              @change="handleChangeDarkMode"
+            />
+          </div>
+          <div class="preference">
+            <div class="preference__wrapper">
               <h4 class="preference__title">Color Blind Mode</h4>
-              <span class="preferenc__subtitle">High contrast colors</span>
+              <span class="preference__subtitle">High contrast colors</span>
             </div>
             <Switcher
               name="colorblind"
@@ -34,6 +44,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapState, mapActions } from 'vuex';
+import { COLOR_THEME } from '@constants/common';
 
 export default Vue.extend({
   data() {
@@ -42,7 +53,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('preferences', ['colorBlindMode']),
+    ...mapState('preferences', ['colorBlindMode', 'darkMode']),
   },
   methods: {
     toggleModal() {
@@ -53,7 +64,15 @@ export default Vue.extend({
       this.changeColorBlindMode(value);
     },
 
-    ...mapActions({ changeColorBlindMode: 'preferences/changeColorBlindMode' }),
+    handleChangeDarkMode(value: boolean) {
+      this.$colorMode.preference = value ? COLOR_THEME.DARK : COLOR_THEME.LIGHT;
+      this.changeDarkMode(value);
+    },
+
+    ...mapActions({
+      changeColorBlindMode: 'preferences/changeColorBlindMode',
+      changeDarkMode: 'preferences/changeDarkMode',
+    }),
   },
 });
 </script>
@@ -92,13 +111,13 @@ export default Vue.extend({
   }
 
   &__title {
-    color: #003543;
+    color: var(--color);
     font-size: 16px;
     font-weight: 600;
   }
 
   &__subtitle {
-    color: #003543;
+    color: var(--color-secondary);
     font-size: 12px;
   }
 }

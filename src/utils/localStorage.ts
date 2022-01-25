@@ -1,5 +1,3 @@
-/** Utils */
-import { getDailyWord } from './words';
 /** Constants */
 import {
   LOCALSTORAGE_GAME_STATE_KEY,
@@ -14,19 +12,13 @@ import { StatisticsState } from '@customTypes/statistics';
 import { needsToResetCurrentStreak } from '@utils/game';
 
 export const getStoredGameState = (initialState: GameState): GameState => {
-  const solution = getDailyWord();
-  const defaultState = { ...initialState, solution };
-
-  if (!process.client) return defaultState;
+  if (!process.client) return initialState;
 
   const state = localStorage.getItem(LOCALSTORAGE_GAME_STATE_KEY);
 
-  if (!state) return defaultState;
+  if (!state) return initialState;
 
   const storedState = { ...JSON.parse(state) };
-
-  if (storedState.solution !== solution) return defaultState;
-
   const normalizedBoard =
     storedState?.board?.map((word: string | null) =>
       word === null ? undefined : word
@@ -35,7 +27,6 @@ export const getStoredGameState = (initialState: GameState): GameState => {
   return {
     ...storedState,
     board: normalizedBoard,
-    solution,
   };
 };
 
@@ -44,12 +35,13 @@ export const storeGameState = ({
   rowIndex,
   status,
   solution,
+  lastPlayed,
 }: GameState) => {
   if (!process.client) return;
   // Only store what we want
   localStorage.setItem(
     LOCALSTORAGE_GAME_STATE_KEY,
-    JSON.stringify({ board, rowIndex, status, solution })
+    JSON.stringify({ board, rowIndex, status, solution, lastPlayed })
   );
 };
 

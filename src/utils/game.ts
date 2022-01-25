@@ -13,6 +13,15 @@ import { LetterEvaluation } from '@customTypes/evaluations';
 import { GameStatus } from '@customTypes/game';
 import { ToastNotifier } from '@customTypes/toast';
 
+const MS_IN_A_DAY = 1000 * 60 * 60 * 24;
+const epochMs = 1642374000000; // January 17, 2022 - The day this project was done
+
+export const getWordleNumber = () => {
+  const now = Date.now();
+  const index = Math.floor((now - epochMs) / MS_IN_A_DAY);
+  return index + 1;
+};
+
 export const isKeyboardKeyValid = (key: string): boolean =>
   /^[a-zA-Z]$/.test(key) ||
   [KEYBOARD_EVENT_KEY.ENTER, KEYBOARD_EVENT_KEY.BACKSPACE].includes(key);

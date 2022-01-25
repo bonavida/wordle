@@ -1,7 +1,7 @@
 <template>
   <Modal id="win_modal" :show="showModal" is-naked @close="emitToggleModal">
     <template slot="header">
-      <h3 class="modal__title">Wordle {{ guessesText }}</h3>
+      <h3 class="modal__title">Wordle #{{ wordleNumber }} {{ guessesText }}</h3>
     </template>
     <template slot="body">
       <div class="modal__container">
@@ -65,7 +65,7 @@
 import Vue from 'vue';
 import { mapState, mapGetters } from 'vuex';
 import { LetterEvaluation } from '@customTypes/evaluations';
-import { copyToClipboard } from '@utils/game';
+import { copyToClipboard, getWordleNumber } from '@utils/game';
 
 export default Vue.extend({
   props: {
@@ -75,6 +75,10 @@ export default Vue.extend({
     },
   },
   computed: {
+    wordleNumber(): number {
+      return getWordleNumber();
+    },
+
     guessesText(): string {
       return `${this.rowIndex + 1}/6`;
     },

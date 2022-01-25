@@ -10,5 +10,6 @@ export interface GameState {
   rowIndex: number;
   status: GameStatus;
   solution: string;
+  lastPlayed: number;
   hasUserInteracted?: boolean;
 }

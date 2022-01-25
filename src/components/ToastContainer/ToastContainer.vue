@@ -58,6 +58,6 @@ export default Vue.extend({
   align-items: center;
   row-gap: 10px;
   z-index: 9999;
-  max-width: 600px;
+  max-width: 700px;
 }
 </style>

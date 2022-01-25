@@ -28,7 +28,11 @@ yarn dev
 
 ## ToDo features
 
-- Use an API to fetch the daily word and to check if the guess is a valid word
-- Dark mode
+- ~~Use an API to fetch the daily word and to check if the guess is a valid word~~
+- ~~Dark mode~~
 - Try words with different length (up to 10 letters)
 - i18n
+
+## Credits
+
+The Wordle API used exclusively in this application has been provided by [Javi Mollà](https://github.com/jmolla31).

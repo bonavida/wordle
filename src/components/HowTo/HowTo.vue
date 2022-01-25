@@ -72,6 +72,18 @@
               :class="{ 'icon--colorblind': colorBlindMode }"
           /></a>
         </p>
+        <p class="note note--aligned">
+          <span>Wordle API provided by <b>Javi Mollà</b>.</span>
+          <a
+            href="https://github.com/jmolla31"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link"
+            ><GitHubIcon
+              class="icon"
+              :class="{ 'icon--colorblind': colorBlindMode }"
+          /></a>
+        </p>
         <p class="note">
           This is is my own adaptation of the original word-guessing game
           <a
@@ -205,6 +217,10 @@ p {
     }
 
     & + .note {
+      margin-top: 0.5rem;
+    }
+
+    &:last-of-type {
       margin-top: 0.5rem;
     }
   }

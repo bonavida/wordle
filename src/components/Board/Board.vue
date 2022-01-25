@@ -23,7 +23,7 @@ export default Vue.extend({
     ...mapActions(['populateGame']),
   },
   mounted() {
-    this.populateGame();
+    this.populateGame(this.$notifier);
   },
 });
 </script>

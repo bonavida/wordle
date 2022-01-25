@@ -38,6 +38,7 @@ export default {
   // Aliases: https://nuxtjs.org/docs/directory-structure/nuxt-config#alias
   alias: {
     '@components': resolve(__dirname, './src/components'),
+    '@services': resolve(__dirname, './src/services'),
     '@constants': resolve(__dirname, './src/constants'),
     '@pages': resolve(__dirname, './src/pages'),
     '@static': resolve(__dirname, './src/static'),
@@ -56,11 +57,18 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    '@nuxtjs/color-mode',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/color-mode'],
+  modules: ['@nuxtjs/axios'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Configure axios global options which will be applied to all requests
+  // https://axios.nuxtjs.org/options
+  axios: {
+    baseURL: 'http://wordleapi.azurewebsites.net/api', // Used as fallback if no runtime config is provided
+  },
 };

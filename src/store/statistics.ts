@@ -29,7 +29,7 @@ export const mutations: MutationTree<StatisticsState> = {
     Object.assign(state, populatedStatistics);
   },
 
-  INCREASE_GAMES_PLAYED: (state) => {
+  REGISTER_GAME_PLAYED: (state) => {
     state.gamesPlayed++;
   },
 
@@ -54,8 +54,8 @@ export const actions: ActionTree<StatisticsState, RootState> = {
     commit('POPULATE_STATISTICS');
   },
 
-  increaseGamesPlayed({ commit, state }, value: boolean) {
-    commit('INCREASE_GAMES_PLAYED', value);
+  registerGamePlayed({ commit, state }) {
+    commit('REGISTER_GAME_PLAYED');
     storeStatistics(state);
   },
 

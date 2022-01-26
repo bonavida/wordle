@@ -69,6 +69,6 @@ export default {
   // Configure axios global options which will be applied to all requests
   // https://axios.nuxtjs.org/options
   axios: {
-    baseURL: 'http://wordleapi.azurewebsites.net/api', // Used as fallback if no runtime config is provided
+    baseURL: 'https://wordleapi.azurewebsites.net/api', // Used as fallback if no runtime config is provided
   },
 };

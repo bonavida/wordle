@@ -14,9 +14,17 @@ import Vue from 'vue';
 import * as confetti from 'canvas-confetti';
 
 import { GAME_STATUS } from '@constants/game';
+import { warmUp } from '@services/api';
 
 export default Vue.extend({
   name: 'IndexPage',
+  asyncData({ $axios }) {
+    warmUp($axios)
+      .then(() => {})
+      .catch((err) => {
+        console.error(err);
+      });
+  },
   data() {
     return {
       unwatch: () => {},

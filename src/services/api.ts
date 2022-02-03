@@ -9,3 +9,6 @@ export const getDailyWord = ($axios: NuxtAxiosInstance) =>
 
 export const checkWordIsValid = ($axios: NuxtAxiosInstance, word: string) =>
   $axios.$get<string>('/check', { params: { input: word } });
+
+export const warmUp = ($axios: NuxtAxiosInstance) =>
+  $axios.$get<string>('/warmup');
